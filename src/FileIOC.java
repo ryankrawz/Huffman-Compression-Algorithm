@@ -32,7 +32,6 @@ public class FileIOC implements FileIO {
   private String textInFileName;
   private String binaryInFileName;
 
-  // Reads in txt file for compression (Huff)
   public FileReader openInputFile(String fname) {
     FileReader fr = null;
     this.textInFileName = fname;
@@ -46,7 +45,6 @@ public class FileIOC implements FileIO {
     return fr;
   }
 
-  // Decompresses zip file into txt file, calls openOutputFile (Puff)
   public BinaryOut openBinaryOutputFile() {
     String binaryOutFileName = this.textInFileName.replace(".txt", ".zip");
 
@@ -56,13 +54,11 @@ public class FileIOC implements FileIO {
 	  return new BinaryOut(binaryOutFileName);
   }
 
-  // Compresses txt file into zip file, calls openInputFile (Huff)
   public BinaryIn openBinaryInputFile(String fname) {
     this.binaryInFileName = fname;
     return new BinaryIn(fname);
   }
 
-  // Reads in zip file for decompression (Puff)
   public FileWriter openOutputFile() {
     FileWriter fw = null;
     String textOutFileName = this.binaryInFileName.replace(".zip", ".txt");
