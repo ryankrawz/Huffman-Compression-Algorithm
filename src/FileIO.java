@@ -1,6 +1,6 @@
 // file: FileIO.java
-// author: Bob Muller
-// revised: March 3, 2018
+// author: Nick Hawk & Ryan Krawczyk
+// revised: Nov 4, 2018
 //
 // The FileIO interface provides functions that can be used for File I/O in
 // a Huffman coding/decoding application.

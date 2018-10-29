@@ -1,6 +1,6 @@
 // file: FileIOC.java
-// author: Bob Muller
-// revised: March 3, 2018
+// author: Nick Hawk & Ryan Krawczyk
+// revised: Nov 4, 2018
 //
 // The FileIO class provides functions that can be used for File I/O in
 // a Huffman coding/decoding application.
@@ -32,6 +32,7 @@ public class FileIOC implements FileIO {
   private String textInFileName;
   private String binaryInFileName;
 
+  // Reads in txt file for compression (Huff)
   public FileReader openInputFile(String fname) {
     FileReader fr = null;
     this.textInFileName = fname;
@@ -45,6 +46,7 @@ public class FileIOC implements FileIO {
     return fr;
   }
 
+  // Decompresses zip file into txt file, called from openOutputFile (Puff)
   public BinaryOut openBinaryOutputFile() {
     String binaryOutFileName = this.textInFileName.replace(".txt", ".zip");
 
@@ -54,11 +56,13 @@ public class FileIOC implements FileIO {
 	  return new BinaryOut(binaryOutFileName);
   }
 
+  // Compresses txt file into zip file, called from openInputFile (Huff)
   public BinaryIn openBinaryInputFile(String fname) {
     this.binaryInFileName = fname;
     return new BinaryIn(fname);
   }
 
+  // Reads in zip file for decompression (Puff)
   public FileWriter openOutputFile() {
     FileWriter fw = null;
     String textOutFileName = this.binaryInFileName.replace(".zip", ".txt");
