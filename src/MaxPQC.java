@@ -13,11 +13,13 @@ public class MaxPQC<T extends Comparable<T>> implements MaxPQ<T> {
 
     private class Node { // Creating Node class
         T info;
+        int weight;
         Node parent;
         Node left;
         Node right;
         Node(T info, Node parent, Node left, Node right) { // triply linked
             this.info = info;
+            this.weight = null;
             this.parent = parent;
             this.left = left;
             this.right = right;
