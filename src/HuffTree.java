@@ -7,6 +7,6 @@ public interface HuffTree {
 
     int compareTo(HuffTree other);
     int weight();
-    int toString();
+    String toString();
 
 }
