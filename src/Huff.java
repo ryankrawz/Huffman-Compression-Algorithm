@@ -3,7 +3,9 @@ authors: Nick Hawk & Ryan Krawczyk
 November 4, 2018
  */
 
-// we're going to need some imports --> PriorityQueue, HashMap, Binary Tree ADT?
+import java.util.HashMap;
+import java.util.PriorityQueue;
+import java.io.*;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -45,7 +47,5 @@ public class Huff {
     }
     return freqTable;
   }
-
-
 
 }

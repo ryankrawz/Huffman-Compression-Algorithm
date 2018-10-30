@@ -1,5 +1,5 @@
 /*
-Max Priority Queue
+Max Priority Queue API
 Nick Hawk & Ryan Krawczyk
 */
 
