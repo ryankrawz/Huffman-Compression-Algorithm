@@ -19,7 +19,7 @@ public class MaxPQC<T extends Comparable<T>> implements MaxPQ<T> {
         Node right;
         Node(T info, Node parent, Node left, Node right) { // triply linked
             this.info = info;
-            this.weight = null;
+            this.weight = 0;
             this.parent = parent;
             this.left = left;
             this.right = right;
@@ -56,18 +56,21 @@ public class MaxPQC<T extends Comparable<T>> implements MaxPQ<T> {
         return item;
     }
 
-    public void insert(T key) { // creates node in the last position and swims the info field
+    public void insert(T key, int weight) { // creates node in the last position and swims the info field
         if (this.isEmpty()) {
           this.first = new Node(key, null, null, null);
+          this.first.weight = weight;
           this.N++;
         } else {
           this.N++;
           Node parent = nodeAt(this.size() / 2);
           if (this.N % 2 == 0) {
             parent.left = new Node(key, parent, null, null); // inserts new Node at last position
+            parent.left.weight = weight;
             swim(parent.left);
           } else {
             parent.right = new Node(key, parent, null, null);
+            parent.right.weight = weight;
             swim(parent.right);
           }
         }
@@ -124,49 +127,6 @@ public class MaxPQC<T extends Comparable<T>> implements MaxPQ<T> {
         else return nodeAt(m / 2).right;
     }
 
-    public static void main(String[] args) {
-        /* Unit Testing */
-        // Integers
-        MaxPQ<Integer> numTestPQ = new MaxPQC<Integer>();
-        //Inserting
-        numTestPQ.insert(3);
-        numTestPQ.insert(114);
-        numTestPQ.insert(56);
-        numTestPQ.insert(94);
-        numTestPQ.insert(169);
-        numTestPQ.insert(8);
-
-        System.out.format("%n");
-        System.out.format("Priority queue after all inserts: %s%n", numTestPQ.toString());
-        System.out.format("Size of priority queue: %d%n%n", numTestPQ.size());
-
-        // Evicting
-        int roof = numTestPQ.size();
-        for (int i = 0; i < roof; i++) {
-            System.out.format("After evicting %d: %s%n", numTestPQ.evictMax(), numTestPQ.toString());
-        }
-        System.out.format("Size of priority queue: %d%n%n", numTestPQ.size());
-
-        // Strings
-        MaxPQ<String> stringTestPQ = new MaxPQC<String>();
-        // Inserting
-        stringTestPQ.insert("D");
-        stringTestPQ.insert("X");
-        stringTestPQ.insert("A");
-        stringTestPQ.insert("J");
-        stringTestPQ.insert("N");
-        stringTestPQ.insert("R");
-
-        System.out.format("%n");
-        System.out.format("Priority queue after all inserts: %s%n", stringTestPQ.toString());
-        System.out.format("Size of priority queue: %d%n%n", stringTestPQ.size());
-
-        // Evicting
-        roof = stringTestPQ.size();
-        for (int j = 0; j < roof; j++) {
-            System.out.format("After evicting %s: %s%n", stringTestPQ.evictMax(), stringTestPQ.toString());
-        }
-        System.out.format("Size of priority queue: %d%n%n", stringTestPQ.size());
-    }
+    public static void main(String[] args) {}
 
 }
