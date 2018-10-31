@@ -12,10 +12,10 @@ import java.lang.*;
 import java.lang.Object;
 
 // Frequency Table
-// 1. HashMap<Character (symbol), Object (frequency and bit patterns)>
-// 2. Object.frequency is Integer and Object.bits is another Object
-// 3. Object.bits.pattern is Integer representation of bits pattern
-// 4. Object.bits.length is length of string of bits
+// 1. HashMap<Character (symbol), SymbolInfo (frequency and bit patterns)>
+// 2. SymbolInfoObj.frequency is Integer and SymbolInfoObj.bits is another Object
+// 3. SymbolInfoObj.bits.pattern is Integer representation of bits pattern
+// 4. SymbolInfoObj.bits.length is length of string of bits
 
 // Huffman Tree
 // 1. PriorityQueue<HuffTree>

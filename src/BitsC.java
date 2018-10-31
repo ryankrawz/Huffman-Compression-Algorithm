@@ -14,6 +14,6 @@ public class BitsC implements Bits {
 
     public int pattern() { return this.pattern; }
 
-    public int length() {return this.length; }
+    public int length() { return this.length; }
 
 }
