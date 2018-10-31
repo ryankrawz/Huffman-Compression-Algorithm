@@ -30,6 +30,6 @@ public class HuffTreeC implements HuffTree {
 
     public String toString() {}
 
-    public Map updateBits(Map map) {}
+    public Map<Character, SymbolInfo> updateBits(Map<Character, SymbolInfo> map) {}
 
 }
