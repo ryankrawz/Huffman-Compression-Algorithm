@@ -25,6 +25,7 @@ import java.lang.Object;
 
 public class Huff {
 
+  // This will require restructuring for new frequency table design
   public Map<Character, Integer> getFreqTable(String fileName){
 
     Map<Character, Integer> freqTable = new HashMap<Character, Integer>();
