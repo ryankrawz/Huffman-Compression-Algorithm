@@ -57,28 +57,28 @@ public class Huff {
     return freqTable;
   }
 
-  public MaxPQ<Character> genHuffTree(Map<Character, Integer> freqTable) {
-      MaxPQ<MaxPQ<Character>> treePQ = new MaxPQC<MaxPQ<Character>>();
-      Object[] keyArray = (Character[]) freqTable.keySet().toArray();
+  // TODO: pseudo-code, unsure if functional
+  public HuffTree (Map<Character, SymbolInfo> freqTable) {
+      PriorityQueue<HuffTree> treePQ = new PriorityQueue<HuffTree>();
+      Character[] keyArray = (Character[]) freqTable.keySet().toArray();
 
       // Adds a series of one-item binary trees to the priority queue
       for (int i = 0; i < keyArray.length; i++) {
-          MaxPQ<Character> symbolPQ = new MaxPQC<Character>();
-          symbolPQ.insert((Character) keyArray[i], freqTable.get(keyArray[i]));
-          treePQ.insert(symbolPQ, 0);
+          HuffTree huff = new HuffTreeC((char) keyArray[i], freqTable.get(keyArray[i]).frequency());
+          treePQ.add(huff);
       }
 
       // While the priority queue has more than one element,
       // remove first two trees and contruct new tree for the priority queue
       while (treePQ.size() > 1) {
-          MaxPQ<Character> t1 = treePQ.evictMax();
-          MaxPQ<Character> t2 = treePQ.evictMax();
-          MaxPQ<Character> t3 = new MaxPQC<Character>();
-          t3.insert(null, t1.first.weight + t2.first.weight);
-          t3.first.left = t1;
-          t3.first.right = t2;
+          HuffTree t1 = treePQ.poll();
+          HuffTree t2 = treePQ.poll();
+          HuffTree t3 = new HuffTreeC(null, t1.weight() + t2.weight());
+          t3.insert(t1);
+          t3.insert(t2);
+          treePQ.add(t3);
       }
-      return treePQ.evictMax();
+      return treePQ.poll();
   }
 
 }

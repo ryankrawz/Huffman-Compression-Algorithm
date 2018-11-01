@@ -18,7 +18,10 @@ public class HuffTreeC implements HuffTree {
         this.right = null;
     }
 
-    public int compareTo(HuffTree other) {}
+    public int compareTo(HuffTree other) {
+        if (this.weight < other.weight)     { return -1; }
+        else                                { return 1; }
+    }
 
     public void insert(HuffTree tree) {
         if (this.left == null)              { this.left = tree; }
