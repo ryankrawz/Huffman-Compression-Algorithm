@@ -38,6 +38,10 @@ public class HuffTreeC implements HuffTree {
 
     public Map<Character, SymbolInfo> updateBits(Map<Character, SymbolInfo> map) {}
 
-    private HuffTree itemAt(int n) {}
+    private HuffTree itemAt(int n) {
+        if (n == 1) { return this; }
+        if (n % 2 == 0) { return itemAt(n / 2).left; }
+        else { return itemAt(n / 2).right; }
+    }
 
 }
