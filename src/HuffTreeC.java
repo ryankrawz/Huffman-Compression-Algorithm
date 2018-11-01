@@ -4,16 +4,18 @@ November 4, 2018
  */
 
 import java.util.Map;
+import java.util.HashMap;
 
 public class HuffTreeC implements HuffTree {
 
     private char symbol;
     private int weight;
-    private HuffTree left, right;
+    private HuffTree parent, left, right;
 
     public HuffTreeC(char symbol, int weight) {
         this.symbol = symbol;
         this.weight = weight;
+        this.parent = null;
         this.left = null;
         this.right = null;
     }
@@ -24,9 +26,10 @@ public class HuffTreeC implements HuffTree {
     }
 
     public void insert(HuffTree tree) {
+        tree.parent = this;
         if (this.left == null)              { this.left = tree; }
         else if (this.right == null)        { this.right = tree; }
-        else                                { throw new RuntimeException("FULL HUFFMAN TREE"); }
+        else                                { throw new RuntimeException("HUFFMAN TREE ALREADY FULL"); }
     }
 
     public int weight() { return this.weight; }
@@ -34,5 +37,7 @@ public class HuffTreeC implements HuffTree {
     public String toString() {}
 
     public Map<Character, SymbolInfo> updateBits(Map<Character, SymbolInfo> map) {}
+
+    private HuffTree itemAt(int n) {}
 
 }
