@@ -28,34 +28,28 @@ public class Huff {
   // This will require restructuring for new frequency table design
   public Map<Character, Integer> getFreqTable(String fileName){
 
-    Map<Character, Integer> freqTable = new HashMap<Character, Integer>();
-    File myFile = new File(fileName);
+      Map<Character, Integer> freqTable = new HashMap<Character, Integer>();
 
-    if (myFile.exists()) { // checks to see if file exists, then proceeds
-      FileReader file = new FileReader(fileName);
+      FileReader file = openInputFile(fileName);
 
       if (file.read() == -1) { // Checks for empty file ***Check file.length() method/ look for a better alternative
-        throw new NoSuchElementException("EMPTY FILE");
+          throw new NoSuchElementException("EMPTY FILE");
       }
 
       while (file.read() != -1) { // Parses through file, mapping each character to frequency
 
-        Character currentChar = Integer.toString(file.read()).charAt(0);
+          Character currentChar = Integer.toString(file.read()).charAt(0);
 
-        if (freqTable.containsKey(currentChar)) { // if the key for the character exists, add 1 to frequency
-          Integer freq = freqTable.get(currentChar);
-          freq += 1;
-          freqTable.put(currentChar, freq);
-        }
-        else { // if key does not exist, map it to frequency = 1
-          freqTable.put(currentChar, 1);
-        }
+          if (freqTable.containsKey(currentChar)) { // if the key for the character exists, add 1 to frequency
+              Integer freq = freqTable.get(currentChar);
+              freq += 1;
+              freqTable.put(currentChar, freq);
+          }
+          else { // if key does not exist, map it to frequency = 1
+              freqTable.put(currentChar, 1);
+          }
       }
-    }
-    else {
-      throw new NoSuchElementException("FILE DOES NOT EXIST");
-    }
-    return freqTable;
+      return freqTable;
   }
 
   // TODO: pseudo-code, unsure if functional
