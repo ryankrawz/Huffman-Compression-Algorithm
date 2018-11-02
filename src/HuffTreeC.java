@@ -34,7 +34,19 @@ public class HuffTreeC implements HuffTree {
 
     public int weight() { return this.weight; }
 
-    public String toString() {}
+    public String toString() {
+        String output = "";
+        try {
+            int i = 1;
+            while (true) {
+                output += String.format("Symbol: %c, weight: %d%n", itemAt(i).symbol, itemAt(i).weight);
+                i++;
+            }
+        } finally {
+            output += String.format("Size: %d%n", i);
+        }
+        return output;
+    }
 
     public Map<Character, SymbolInfo> updateBits(Map<Character, SymbolInfo> map) {}
 
