@@ -8,7 +8,7 @@ public class SymbolInfoC implements SymbolInfo {
     private int frequency;
     private Bits bits;
 
-    public SymbolInfoC(int freq, Bits bits) {
+    public SymbolInfoC(int freq, Bits bits) { 
         this.frequency = freq;
         this.bits = bits;
     }
