@@ -11,5 +11,8 @@ public interface SymbolInfo {
 
     int frequency();
     Bits bits();
+    void increment();
+    void addPattern(int pattern);
+    void addLength(int length);
 
 }

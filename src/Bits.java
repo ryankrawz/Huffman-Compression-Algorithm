@@ -11,5 +11,7 @@ public interface Bits {
 
     int pattern();
     int length();
+    void addPattern(int pattern);
+    void addLength(int length);
 
 }

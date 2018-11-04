@@ -16,4 +16,8 @@ public class BitsC implements Bits {
 
     public int length() { return this.length; }
 
+    public void addPattern(int pattern) { this.pattern = pattern; }
+
+    public void addLength(int length) { this.length = length; }
+
 }

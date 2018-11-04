@@ -11,6 +11,6 @@ public interface HuffTree {
     void insert(HuffTree tree);
     int weight();
     String toString();
-    Map<Character, SymbolInfo> updateBits(Map<Character, SymbolInfo> map);
+    Map<Integer, SymbolInfo> updateBits(Map<Integer, SymbolInfo> map);
 
 }

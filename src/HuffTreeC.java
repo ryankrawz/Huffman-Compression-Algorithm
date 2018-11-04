@@ -5,14 +5,15 @@ November 4, 2018
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 
 public class HuffTreeC implements HuffTree {
 
-    private char symbol;
+    private Integer symbol;
     private int weight;
     private HuffTree parent, left, right;
 
-    public HuffTreeC(char symbol, int weight) {
+    public HuffTreeC(Integer symbol, int weight) {
         this.symbol = symbol;
         this.weight = weight;
         this.parent = null;
@@ -35,25 +36,48 @@ public class HuffTreeC implements HuffTree {
     public int weight() { return this.weight; }
 
     public String toString() {
-        String output = "";
+        String output = "[ ";
         try {
             int i = 1;
             while (true) {
-                output += String.format("Symbol: %c, weight: %d%n", itemAt(i).symbol, itemAt(i).weight);
+                if (i == 1) {
+                    output += String.format("symbol: %d | weight: %d", itemAt(i).symbol, itemAt(i).weight);
+                }
+                else {
+                    output += String.format(" , symbol: %d | weight: %d", itemAt(i).symbol, itemAt(i).weight);
+                }
                 i++;
             }
         } finally {
-            output += String.format("Size: %d%n", i);
+            output += String.format(" ]");
         }
         return output;
     }
 
-    public Map<Character, SymbolInfo> updateBits(Map<Character, SymbolInfo> map) {}
+    public Map<Integer, SymbolInfo> updateBits(Map<Integer, SymbolInfo> map) {
+        Integer[] keyArray = (Integer[]) map.keySet().toArray();
+        for (int i = 0; i < keyArray.length; i++) {
+            // recursive walk to locate key in Huffman tree and delinate bit pattern
+            // call addPattern and addLength on map.get(keyArray[i]), then map.put
+        }
+    }
 
     private HuffTree itemAt(int n) {
         if (n == 1) { return this; }
         if (n % 2 == 0) { return itemAt(n / 2).left; }
         else { return itemAt(n / 2).right; }
+    }
+
+    private HuffTree findItem(Integer item) {
+        try {
+            int i = 1;
+            while (true) {
+                if (itemAt(i).symbol == item) { return itemAt(i); }
+                i++;
+            }
+        } finally {
+            throw new NoSuchElementException("TREE DOES NOT CONTAIN ITEM");
+        }
     }
 
 }

@@ -17,4 +17,10 @@ public class SymbolInfoC implements SymbolInfo {
 
     public Bits bits() { return this.bits; }
 
+    public void increment() { this.frequency++ };
+
+    public void addPattern(int pattern) { this.bits.addPattern(int pattern); }
+
+    public void addLength(int length) { this.bits.addLength(int length); }
+
 }
