@@ -68,11 +68,11 @@ public class HuffTreeC implements HuffTree {
         else { return itemAt(n / 2).right; }
     }
 
-    private HuffTree findItem(Integer item) {
+    private int findIndex(Integer item) {
         try {
             int i = 1;
             while (true) {
-                if (itemAt(i).symbol == item) { return itemAt(i); }
+                if (itemAt(i).symbol == item) { return i; }
                 i++;
             }
         } finally {
