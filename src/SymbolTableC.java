@@ -64,7 +64,8 @@ public class SymbolTableC implements SymbolTable {
       String mapper = "";
       List<Integer> l = new ArrayList<Integer>(table.keySet());
       for(int i = 0; i < l.size(); i ++) {
-        mapper += String.valueOf(Character.toChars(l.get(i))) + " --> " + Integer.toString(table.get(l.get(i)).frequency()) + "\n";
+        mapper += String.valueOf(Character.toChars(l.get(i))) + " --> " +
+        Integer.toString(table.get(l.get(i)).frequency()) + "\n";
       }
       return mapper;
     }
@@ -91,6 +92,11 @@ public class SymbolTableC implements SymbolTable {
             treePQ.add(t3);
         }
         return treePQ.poll();
+    }
+
+
+    public static void main(String[] args) {
+
     }
 
 }
