@@ -8,7 +8,7 @@ public class SymbolInfoC implements SymbolInfo {
     private int frequency;
     private Bits bits;
 
-    public SymbolInfoC(int freq, Bits bits) { 
+    public SymbolInfoC(int freq, Bits bits) {
         this.frequency = freq;
         this.bits = bits;
     }
@@ -17,10 +17,10 @@ public class SymbolInfoC implements SymbolInfo {
 
     public Bits bits() { return this.bits; }
 
-    public void increment() { this.frequency++ };
+    public void increment() { this.frequency++; }
 
-    public void addPattern(int pattern) { this.bits.addPattern(int pattern); }
+    public void addPattern(int pattern) { this.bits.addPattern(pattern); }
 
-    public void addLength(int length) { this.bits.addLength(int length); }
+    public void addLength(int length) { this.bits.addLength(length); }
 
 }

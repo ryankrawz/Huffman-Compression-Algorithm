@@ -22,18 +22,26 @@ public class HuffTreeC implements HuffTree {
     }
 
     public int compareTo(HuffTree other) {
-        if (this.weight < other.weight)     { return -1; }
-        else                                { return 1; }
+        if (this.weight() < other.weight())     { return -1; }
+        else                                    { return 1; }
     }
 
     public void insert(HuffTree tree) {
-        tree.parent = this;
+        tree.setParent(this);
         if (this.left == null)              { this.left = tree; }
         else if (this.right == null)        { this.right = tree; }
         else                                { throw new RuntimeException("HUFFMAN TREE ALREADY FULL"); }
     }
 
+    public void setParent(HuffTree tree) { this.parent = tree; }
+
+    public HuffTree left() { return this.left; }
+
+    public HuffTree right() { return this.right; }
+
     public int weight() { return this.weight; }
+
+    public Integer symbol() { return this.symbol; }
 
     public String toString() {
         String output = "[ ";
@@ -41,10 +49,10 @@ public class HuffTreeC implements HuffTree {
             int i = 1;
             while (true) {
                 if (i == 1) {
-                    output += String.format("symbol: %d | weight: %d", itemAt(i).symbol, itemAt(i).weight);
+                    output += String.format("symbol: %d | weight: %d", itemAt(i).symbol(), itemAt(i).weight());
                 }
                 else {
-                    output += String.format(" , symbol: %d | weight: %d", itemAt(i).symbol, itemAt(i).weight);
+                    output += String.format(" , symbol: %d | weight: %d", itemAt(i).symbol(), itemAt(i).weight());
                 }
                 i++;
             }
@@ -64,15 +72,15 @@ public class HuffTreeC implements HuffTree {
 
     private HuffTree itemAt(int n) {
         if (n == 1) { return this; }
-        if (n % 2 == 0) { return itemAt(n / 2).left; }
-        else { return itemAt(n / 2).right; }
+        if (n % 2 == 0) { return itemAt(n / 2).left(); }
+        else { return itemAt(n / 2).right(); }
     }
 
     private int findIndex(Integer item) {
         try {
             int i = 1;
             while (true) {
-                if (itemAt(i).symbol == item) { return i; }
+                if (itemAt(i).symbol() == item) { return i; }
                 i++;
             }
         } finally {

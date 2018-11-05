@@ -9,7 +9,11 @@ public interface HuffTree {
 
     int compareTo(HuffTree other);
     void insert(HuffTree tree);
+    void setParent(HuffTree tree);
+    HuffTree left();
+    HuffTree right();
     int weight();
+    Integer symbol();
     String toString();
     Map<Integer, SymbolInfo> updateBits(Map<Integer, SymbolInfo> map);
 

@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.NoSuchElementException;
+import java.io.IOException;
 import java.io.*;
 
 public class SymbolTableC implements SymbolTable {
@@ -32,20 +33,28 @@ public class SymbolTableC implements SymbolTable {
       Map<Integer, SymbolInfo> freqTable = new HashMap<Integer, SymbolInfo>();
       FileIO io = new FileIOC();
       FileReader myFile = io.openInputFile(fileName);
-      if (myFile.read() == -1) { throw new NoSuchElementException("EMPTY FILE"); }
+      try {
+        if (myFile.read() == -1) { throw new NoSuchElementException("EMPTY FILE"); }
+      } catch (IOException e) {
+        System.out.println(e);
+      }
 
-      while (myFile.read() != -1) { // Parses through file, mapping each character to frequency
-          Integer current = myFile.read();
-          if (freqTable.containsKey(current)) { // if the key for the character exists, add 1 to frequency
-              SymbolInfo myInfo = freqTable.get(current);
-              myInfo.increment();
+      try {
+        while (myFile.read() != -1) { // Parses through file, mapping each character to frequency
+            Integer current = myFile.read();
+            if (freqTable.containsKey(current)) { // if the key for the character exists, add 1 to frequency
+                SymbolInfo myInfo = freqTable.get(current);
+                myInfo.increment();
+                freqTable.put(current, myInfo);
+            }
+            // if key does not exist, map it to frequency = 1
+            else {
+              SymbolInfo myInfo = new SymbolInfoC(1, (Bits) null);
               freqTable.put(current, myInfo);
-          }
-          // if key does not exist, map it to frequency = 1
-          else {
-            SymbolInfo myInfo = new SymbolInfoC(1, (Bits) null);
-            freqTable.put(current, myInfo);
-          }
+            }
+        }
+      } catch (IOException e) {
+        System.out.println(e);
       }
       return freqTable;
     }
