@@ -43,6 +43,7 @@ public class HuffTreeC implements HuffTree {
 
     public Integer symbol() { return this.symbol; }
 
+    // designed to loop until a null pointer is reached
     public String toString() {
         String output = "[ ";
         try {
@@ -97,6 +98,7 @@ public class HuffTreeC implements HuffTree {
         else { return itemAt(n / 2).right(); }
     }
 
+    // designed to loop until a null pointer is reached
     private int findIndex(Integer item) {
         try {
             int i = 1;
@@ -107,6 +109,35 @@ public class HuffTreeC implements HuffTree {
         } finally {
             throw new NoSuchElementException("TREE DOES NOT CONTAIN ITEM");
         }
+    }
+
+    public static void main(String[] args) {
+        char a = "A".charAt(0);
+        char b = "B".charAt(0);
+        char c = "C".charAt(0);
+        char d = "D".charAt(0);
+        char e = "E".charAt(0);
+
+        HuffTree t1 = new HuffTreeC((int) a, 2);
+        HuffTree t2 = new HuffTreeC((int) b, 5);
+        HuffTree t3 = new HuffTreeC((int) c, 3);
+        HuffTree t4 = new HuffTreeC((int) d, 1);
+        HuffTree t5 = new HuffTreeC((int) e, 4);
+
+        HuffTree t6 = new HuffTreeC(null, t1.weight() + t2.weight());
+        t6.insert(t1);
+        t6.insert(t2);
+        HuffTree t7 = new HuffTreeC(null, t6.weight() + t3.weight());
+        t7.insert(t6);
+        t7.insert(t3);
+        HuffTree t8 = new HuffTreeC(null, t7.weight() + t4.weight());
+        t8.insert(t7);
+        t8.insert(t4);
+        HuffTree t9 = new HuffTreeC(null, t8.weight() + t5.weight());
+        t9.insert(t8);
+        t9.insert(t5);
+
+        System.out.format("%s%n", t9.toString());
     }
 
 }
