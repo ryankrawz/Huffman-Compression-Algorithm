@@ -9,6 +9,8 @@ import java.util.PriorityQueue;
 import java.util.NoSuchElementException;
 import java.io.IOException;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SymbolTableC implements SymbolTable {
 
@@ -56,6 +58,15 @@ public class SymbolTableC implements SymbolTable {
         System.out.println(e);
       }
       return freqTable;
+    }
+
+    public String toString() {
+      String mapper = "";
+      List<Integer> l = new ArrayList<Integer>(table.keySet());
+      for(int i = 0; i < l.size(); i ++) {
+        mapper += String.valueOf(Character.toChars(l.get(i))) + " --> " + Integer.toString(table.get(l.get(i)).frequency()) + "\n";
+      }
+      return mapper;
     }
 
 
