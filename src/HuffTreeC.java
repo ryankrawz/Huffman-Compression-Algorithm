@@ -58,16 +58,36 @@ public class HuffTreeC implements HuffTree {
             }
         } finally {
             output += String.format(" ]");
+            return output;
         }
-        return output;
     }
 
     public Map<Integer, SymbolInfo> updateBits(Map<Integer, SymbolInfo> map) {
         Integer[] keyArray = (Integer[]) map.keySet().toArray();
         for (int i = 0; i < keyArray.length; i++) {
-          keyArray[i]
-            // recursive walk to locate key in Huffman tree and delinate bit pattern
-            // call addPattern and addLength on map.get(keyArray[i]), then map.put
+            StringBuilder sb = new StringBuilder("");
+            int pattern = makeBits(findIndex(keyArray[i]), sb);
+            SymbolInfo newVal = map.get(keyArray[i]);
+            newVal.addPattern(pattern);
+            newVal.addLength(Integer.toString(pattern).length());
+            map.put(keyArray[i], newVal);
+        }
+        return map;
+    }
+
+    private int makeBits(int n, StringBuilder start) {
+        if (n == 1) {
+            start.append("b0");
+            start.reverse();
+            int pattern = Integer.parseInt(start.toString());
+            return pattern;
+        }
+        if (n % 2 == 0) {
+            start.append("1");
+            return makeBits(n / 2, start);
+        } else {
+            start.append("0");
+            return makeBits(n / 2, start);
         }
     }
 
