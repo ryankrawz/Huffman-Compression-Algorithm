@@ -26,7 +26,7 @@ import java.lang.Object;
 public class Huff {
 
     public static void main(String[] args) {
-        SymbolTable table = new SymbolTableC(args[0]);
+        SymbolTable refTable = new SymbolTableC(args[0]);
     }
 
 }
