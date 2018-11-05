@@ -24,6 +24,15 @@ public class SymbolTableC implements SymbolTable {
 
     public Map<Integer, SymbolInfo> table() { return this.table; }
 
+    public String toString() {
+        String mapper = "";
+        List<Integer> l = new ArrayList<Integer>(table.keySet());
+        for(int i = 0; i < l.size(); i ++) {
+            mapper += String.valueOf(Character.toChars(l.get(i))) + " --> " + Integer.toString(table.get(l.get(i)).frequency()) + "\n";
+        }
+        return mapper;
+    }
+
     private Map<Integer, SymbolInfo> genSymbolTable(Map<Integer, SymbolInfo> freqTable) {
         HuffTree huff = genHuffTree(freqTable);
         Map<Integer, SymbolInfo> newTable = huff.updateBits(freqTable);
@@ -60,6 +69,7 @@ public class SymbolTableC implements SymbolTable {
       return freqTable;
     }
 
+<<<<<<< HEAD
     public String toString() {
       String mapper = "";
       List<Integer> l = new ArrayList<Integer>(table.keySet());
@@ -71,6 +81,8 @@ public class SymbolTableC implements SymbolTable {
     }
 
 
+=======
+>>>>>>> 8c762a15df1de235708e6bec3958e1c5dba4fd79
     private HuffTree genHuffTree(Map<Integer, SymbolInfo> freqTable) {
         PriorityQueue<HuffTree> treePQ = new PriorityQueue<HuffTree>();
         Integer[] keyArray = (Integer[]) freqTable.keySet().toArray();
@@ -94,9 +106,16 @@ public class SymbolTableC implements SymbolTable {
         return treePQ.poll();
     }
 
+<<<<<<< HEAD
 
     public static void main(String[] args) {
 
+=======
+    public static void main(String[] args) {
+        // make a testFile.txt for unit testing
+        SymbolTable testTable = new SymbolTableC("testFile.txt");
+        System.out.format("%s%n", testTable.toString());
+>>>>>>> 8c762a15df1de235708e6bec3958e1c5dba4fd79
     }
 
 }
