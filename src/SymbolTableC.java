@@ -20,7 +20,7 @@ public class SymbolTableC implements SymbolTable {
         this.fileName = fileName;
     }
 
-    public SymbolTable table() { return this.table; }
+    public Map<Integer, SymbolInfo> table() { return this.table; }
 
     private Map<Integer, SymbolInfo> genSymbolTable(Map<Integer, SymbolInfo> freqTable) {
         HuffTree huff = genHuffTree(freqTable);

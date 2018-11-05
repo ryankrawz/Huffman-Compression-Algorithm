@@ -48,8 +48,8 @@ public class FileIOC implements FileIO {
   public BinaryOut openBinaryOutputFile() {
     String binaryOutFileName = this.textInFileName.replace(".txt", ".zip");
 
-	  if (Huff.DEBUG)
-      System.out.format("openBinaryOutputFile: new file name is %s\n", binaryOutFileName);
+	  //if (Huff.DEBUG)
+      //System.out.format("openBinaryOutputFile: new file name is %s\n", binaryOutFileName);
 
 	  return new BinaryOut(binaryOutFileName);
   }
