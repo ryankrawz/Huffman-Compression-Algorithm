@@ -27,6 +27,7 @@ public class Huff {
 
     public static void main(String[] args) {
         SymbolTable table = new SymbolTableC(args[0]);
+        
     }
 
 }

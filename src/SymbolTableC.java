@@ -12,7 +12,7 @@ import java.io.*;
 
 public class SymbolTableC implements SymbolTable {
 
-    private SymbolTable table;
+    private Map<Integer, SymbolInfo> table;
     private String fileName;
 
     public SymbolTableC(String fileName) {
@@ -22,11 +22,10 @@ public class SymbolTableC implements SymbolTable {
 
     public SymbolTable table() { return this.table; }
 
-    private SymbolTable genSymbolTable(Map<Integer, SymbolInfo> freqTable) {
+    private Map<Integer, SymbolInfo> genSymbolTable(Map<Integer, SymbolInfo> freqTable) {
         HuffTree huff = genHuffTree(freqTable);
         Map<Integer, SymbolInfo> newTable = huff.updateBits(freqTable);
-        // compress symbol table by appending length of bit pattern following by bit pattern?
-        // also compress Huffman tree?
+        return newTable;
     }
 
     private Map<Integer, SymbolInfo> genMap(String fileName) {
