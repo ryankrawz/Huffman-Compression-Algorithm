@@ -8,5 +8,6 @@ import java.util.HashMap;
 public interface SymbolTable {
 
     Map<Integer, SymbolInfo> table();
+    String toString();
 
 }
