@@ -5,7 +5,7 @@ November 4, 2018
 
 import java.util.Map;
 
-public interface HuffTree {
+public interface HuffTree extends Comparable {
 
     int compareTo(HuffTree other);
     void insert(HuffTree tree);
