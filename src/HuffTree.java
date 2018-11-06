@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface HuffTree extends Comparable {
 
-    int compareTo(HuffTree other);
+    int compareTo(Object other);
     void insert(HuffTree tree);
     void setParent(HuffTree tree);
     HuffTree left();
