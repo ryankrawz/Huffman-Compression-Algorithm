@@ -12,16 +12,12 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
 public class SymbolTableC implements SymbolTable {
 
-
+    public FileIO io = new FileIOC();
 
     private Map<Integer, SymbolInfo> table;
     private String fileName;
-    public FileIO io = new FileIOC();
 
     public SymbolTableC(String fileName) {
       this.fileName = fileName;
@@ -31,11 +27,9 @@ public class SymbolTableC implements SymbolTable {
 
     public Map<Integer, SymbolInfo> table() { return this.table; }
 
-
     private Map<Integer, SymbolInfo> generateFrequencyTable(String fileName) {
-
       Map<Integer, SymbolInfo> freqTable = new HashMap<Integer, SymbolInfo>();
-      FileReader myFile = io.openInputFile(fileName);
+      FileReader myFile = io.openInputFile(fileName); // open input file
 
       try {
         Integer current = myFile.read();
@@ -59,15 +53,10 @@ public class SymbolTableC implements SymbolTable {
       return freqTable;
     }
 
-
-
-    public void addBitStrings(Map<Integer, SymbolInfo> freqTable) {
-        HuffTree huff = genHuffTree(freqTable);
-        huff.treeTraversal(freqTable, "");
+    public void addBitStrings(Map<Integer, SymbolInfo> freqTable) { // called after frequency table is generated
+        HuffTree huff = genHuffTree(freqTable); // creates a hufftree out of the frequency table
+        huff.treeTraversal(freqTable, ""); // adds bits field to the symboltable
     }
-
-
-
 
     public String toString() {
       String mapper = "";
@@ -81,12 +70,8 @@ public class SymbolTableC implements SymbolTable {
       return mapper;
     }
 
-
-
-
-
     private HuffTree genHuffTree(Map<Integer, SymbolInfo> freqTable) {
-        PriorityQueue<HuffTree> treePQ = new PriorityQueue<HuffTree>();
+        PriorityQueue<HuffTree> treePQ = new PriorityQueue<HuffTree>(); // create a priority queue
         List<Integer> keyArray = new ArrayList<Integer>(freqTable.keySet());
 
         // Adds a series of one-item binary trees to the priority queue
@@ -108,11 +93,7 @@ public class SymbolTableC implements SymbolTable {
         return treePQ.poll();
     }
 
-
-
-
-
-
+    // unit testing
     public static void main(String[] args) {
         // make a testFile.txt for unit testing
 

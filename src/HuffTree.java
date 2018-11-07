@@ -15,7 +15,6 @@ public interface HuffTree extends Comparable {
     int weight();
     Integer symbol();
     String toString();
-  //  Map<Integer, SymbolInfo> updateBits(Map<Integer, SymbolInfo> map);
     void treeTraversal(Map<Integer, SymbolInfo> map, String pattern);
 
 }

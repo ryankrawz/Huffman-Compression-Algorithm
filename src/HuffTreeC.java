@@ -24,13 +24,13 @@ public class HuffTreeC implements HuffTree {
         this.right = null;
     }
 
-    public int compareTo(Object other) {
+    public int compareTo(Object other) { // breaks ties by returning 1 to ensure consistency
         HuffTree tree = (HuffTree) other;
         if (this.weight() < tree.weight())     { return -1; }
         else                                    { return 1; }
     }
 
-    public void insert(HuffTree tree) {
+    public void insert(HuffTree tree) { // inserts left child and then right child, throws exception if more than two trees are inserted
         tree.setParent(this);
         if (this.left == null)              { this.left = tree; }
         else if (this.right == null)        { this.right = tree; }
@@ -67,72 +67,28 @@ public class HuffTreeC implements HuffTree {
         }
     }
 
-    // public Map<Integer, SymbolInfo> updateBits(Map<Integer, SymbolInfo> map) {
-    //     List<Integer> keyArray = new ArrayList<Integer>(map.keySet());
-    //     for (int i = 0; i < keyArray.size(); i++) {
-    //         StringBuilder sb = new StringBuilder("");
-    //         int pattern = makeBits(findIndex(keyArray.get(i)), sb);
-    //         SymbolInfo newVal = map.get(keyArray.get(i));
-    //         newVal.addPattern(pattern);
-    //         newVal.addLength(Integer.toString(pattern).length());
-    //         map.put(keyArray.get(i), newVal);
-    //     }
-    //     return map;
-    // }
-
-
-    public void treeTraversal(Map<Integer, SymbolInfo> map, String pattern) { //arguments symbol table and empty string
-      if (this.right() == null && this.left() == null) {
-        // how do we create bit pattern?
+    public void treeTraversal(Map<Integer, SymbolInfo> map, String pattern) {
+      if (this.right() == null && this.left() == null) { // if leaf, add bit pattern to bits field
         SymbolInfo newVal = map.get(this.symbol());
         newVal.addPattern(pattern);
         newVal.addLength(pattern.length());
         map.put(this.symbol(), newVal);
       }
-      if (this.left() != null) {
+      if (this.left() != null) { // if left, recurse down left tree and add 0 to pattern
         this.left().treeTraversal(map, pattern + "0");
       }
-      if (this.right() != null) {
+      if (this.right() != null) { // if right, recurse down right tree and add 1 to pattern
         this.right().treeTraversal(map, pattern + "1");
       } // use charAt if 0, push 0
     }
 
-
-    // private int makeBits(int n, StringBuilder start) {
-    //     if (n == 1) {
-    //         start.append("b0");
-    //         start.reverse();
-    //         int pattern = Integer.parseInt(start.toString());
-    //         return pattern;
-    //     }
-    //     if (n % 2 == 0) {
-    //         start.append("1");
-    //         return makeBits(n / 2, start);
-    //     } else {
-    //         start.append("0");
-    //         return makeBits(n / 2, start);
-    //     }
-    // }
-
-    private HuffTree itemAt(int n) {
+    private HuffTree itemAt(int n) { // finds item at a given index
         if (n == 1) { return this; }
         if (n % 2 == 0) { return itemAt(n / 2).left(); }
         else { return itemAt(n / 2).right(); }
     }
 
-    // designed to loop until a null pointer is reached
-    // private int findIndex(Integer item) {
-    //     try {
-    //         int i = 1;
-    //         while (true) {
-    //             if (itemAt(i).symbol() == item) { return i; }
-    //             i++;
-    //         }
-    //     } finally {
-    //         throw new NoSuchElementException("TREE DOES NOT CONTAIN ITEM");
-    //     }
-    // }
-
+    // unit testing
     public static void main(String[] args) {
         char a = "A".charAt(0);
         char b = "B".charAt(0);
