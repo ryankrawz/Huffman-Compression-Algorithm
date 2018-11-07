@@ -11,6 +11,7 @@ import java.util.NoSuchElementException;
 import java.lang.*;
 import java.lang.Object;
 
+
 // Frequency Table
 // 1. HashMap<Character (symbol), SymbolInfo (frequency and bit patterns)>
 // 2. SymbolInfoObj.frequency is Integer and SymbolInfoObj.bits is another Object
@@ -26,7 +27,12 @@ import java.lang.Object;
 public class Huff {
 
     public static void main(String[] args) {
-        SymbolTable refTable = new SymbolTableC(args[0]);
+        SymbolTable freqTable = new SymbolTableC(args[0]);
+
+        BinaryOut outputFile = SymbolTableC.io.openBinaryOutputFile();
+        BinaryOut out = new BinaryOut(compressed.txt);
+        out.write(0x0BC0);
+
     }
 
 }

@@ -12,55 +12,45 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+
 public class SymbolTableC implements SymbolTable {
+
+
 
     private Map<Integer, SymbolInfo> table;
     private String fileName;
+    public FileIO io = new FileIOC();
 
     public SymbolTableC(String fileName) {
-        this.table = genSymbolTable(genMap(fileName));
-        this.fileName = fileName;
+      this.fileName = fileName;
+      this.table = generateFrequencyTable(this.fileName);
+      addBitStrings(this.table);
     }
 
     public Map<Integer, SymbolInfo> table() { return this.table; }
 
-    public String toString() {
-        String mapper = "";
-        List<Integer> l = new ArrayList<Integer>(table.keySet());
-        for(int i = 0; i < l.size(); i ++) {
-            mapper += String.valueOf(Character.toChars(l.get(i))) + " --> " + Integer.toString(table.get(l.get(i)).frequency()) + "\n";
-        }
-        return mapper;
-    }
 
-    private Map<Integer, SymbolInfo> genSymbolTable(Map<Integer, SymbolInfo> freqTable) {
-        HuffTree huff = genHuffTree(freqTable);
-        Map<Integer, SymbolInfo> newTable = huff.updateBits(freqTable);
-        return newTable;
-    }
+    private Map<Integer, SymbolInfo> generateFrequencyTable(String fileName) {
 
-    private Map<Integer, SymbolInfo> genMap(String fileName) {
       Map<Integer, SymbolInfo> freqTable = new HashMap<Integer, SymbolInfo>();
-      FileIO io = new FileIOC();
       FileReader myFile = io.openInputFile(fileName);
-      try {
-        if (myFile.read() == -1) { throw new NoSuchElementException("EMPTY FILE"); }
-      } catch (IOException e) {
-        System.out.println(e);
-      }
 
       try {
-        while (myFile.read() != -1) { // Parses through file, mapping each character to frequency
-            Integer current = myFile.read();
+        Integer current = myFile.read();
+        while (current != -1) { // Parses through file, mapping each character to frequency
             if (freqTable.containsKey(current)) { // if the key for the character exists, add 1 to frequency
                 SymbolInfo myInfo = freqTable.get(current);
                 myInfo.increment();
                 freqTable.put(current, myInfo);
+                current = myFile.read();
             }
             // if key does not exist, map it to frequency = 1
             else {
-              SymbolInfo myInfo = new SymbolInfoC(1, (Bits) null);
+              SymbolInfo myInfo = new SymbolInfoC(1, "", 0);
               freqTable.put(current, myInfo);
+              current = myFile.read();
             }
         }
       } catch (IOException e) {
@@ -69,27 +59,39 @@ public class SymbolTableC implements SymbolTable {
       return freqTable;
     }
 
-<<<<<<< HEAD
+
+
+    public void addBitStrings(Map<Integer, SymbolInfo> freqTable) {
+        HuffTree huff = genHuffTree(freqTable);
+        huff.treeTraversal(freqTable, "");
+    }
+
+
+
+
     public String toString() {
       String mapper = "";
-      List<Integer> l = new ArrayList<Integer>(table.keySet());
+      List<Integer> l = new ArrayList<Integer>(this.table.keySet());
       for(int i = 0; i < l.size(); i ++) {
-        mapper += String.valueOf(Character.toChars(l.get(i))) + " --> " +
-        Integer.toString(table.get(l.get(i)).frequency()) + "\n";
+        SymbolInfo val = table.get(l.get(i));
+        mapper += Integer.toString(l.get(i)) + " --> " +
+        Integer.toString(val.frequency()) + " || Bit Pattern: " +
+        val.pattern() + " || Bit Length: " + Integer.toString(val.length()) + "\n";
       }
       return mapper;
     }
 
 
-=======
->>>>>>> 8c762a15df1de235708e6bec3958e1c5dba4fd79
+
+
+
     private HuffTree genHuffTree(Map<Integer, SymbolInfo> freqTable) {
         PriorityQueue<HuffTree> treePQ = new PriorityQueue<HuffTree>();
-        Integer[] keyArray = (Integer[]) freqTable.keySet().toArray();
+        List<Integer> keyArray = new ArrayList<Integer>(freqTable.keySet());
 
         // Adds a series of one-item binary trees to the priority queue
-        for (int i = 0; i < keyArray.length; i++) {
-            HuffTree huff = new HuffTreeC(keyArray[i], freqTable.get(keyArray[i]).frequency());
+        for (int i = 0; i < keyArray.size(); i++) {
+            HuffTree huff = new HuffTreeC(keyArray.get(i), freqTable.get(keyArray.get(i)).frequency());
             treePQ.add(huff);
         }
 
@@ -106,16 +108,17 @@ public class SymbolTableC implements SymbolTable {
         return treePQ.poll();
     }
 
-<<<<<<< HEAD
 
-    public static void main(String[] args) {
 
-=======
+
+
+
     public static void main(String[] args) {
         // make a testFile.txt for unit testing
+
         SymbolTable testTable = new SymbolTableC("testFile.txt");
-        System.out.format("%s%n", testTable.toString());
->>>>>>> 8c762a15df1de235708e6bec3958e1c5dba4fd79
+        System.out.format("%s%n", testTable);
+
     }
 
 }

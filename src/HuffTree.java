@@ -5,9 +5,9 @@ November 4, 2018
 
 import java.util.Map;
 
-public interface HuffTree {
+public interface HuffTree extends Comparable {
 
-    int compareTo(HuffTree other);
+    int compareTo(Object other);
     void insert(HuffTree tree);
     void setParent(HuffTree tree);
     HuffTree left();
@@ -15,6 +15,7 @@ public interface HuffTree {
     int weight();
     Integer symbol();
     String toString();
-    Map<Integer, SymbolInfo> updateBits(Map<Integer, SymbolInfo> map);
+  //  Map<Integer, SymbolInfo> updateBits(Map<Integer, SymbolInfo> map);
+    void treeTraversal(Map<Integer, SymbolInfo> map, String pattern);
 
 }

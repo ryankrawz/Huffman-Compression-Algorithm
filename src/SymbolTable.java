@@ -9,5 +9,6 @@ public interface SymbolTable {
 
     Map<Integer, SymbolInfo> table();
     String toString();
+    void addBitStrings(Map<Integer, SymbolInfo> freqTable);
 
 }

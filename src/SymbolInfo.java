@@ -10,9 +10,10 @@ bits() --> returns ADT with attributes pattern and length
 public interface SymbolInfo {
 
     int frequency();
-    Bits bits();
+    String pattern();
+    int length();
     void increment();
-    void addPattern(int pattern);
+    void addPattern(String pattern);
     void addLength(int length);
 
 }

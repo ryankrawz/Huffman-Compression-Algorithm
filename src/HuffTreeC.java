@@ -6,6 +6,9 @@ November 4, 2018
 import java.util.Map;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
+import java.util.List;
+import java.util.ArrayList;
+
 
 public class HuffTreeC implements HuffTree {
 
@@ -21,8 +24,9 @@ public class HuffTreeC implements HuffTree {
         this.right = null;
     }
 
-    public int compareTo(HuffTree other) {
-        if (this.weight() < other.weight())     { return -1; }
+    public int compareTo(Object other) {
+        HuffTree tree = (HuffTree) other;
+        if (this.weight() < tree.weight())     { return -1; }
         else                                    { return 1; }
     }
 
@@ -63,34 +67,52 @@ public class HuffTreeC implements HuffTree {
         }
     }
 
-    public Map<Integer, SymbolInfo> updateBits(Map<Integer, SymbolInfo> map) {
-        Integer[] keyArray = (Integer[]) map.keySet().toArray();
-        for (int i = 0; i < keyArray.length; i++) {
-            StringBuilder sb = new StringBuilder("");
-            int pattern = makeBits(findIndex(keyArray[i]), sb);
-            SymbolInfo newVal = map.get(keyArray[i]);
-            newVal.addPattern(pattern);
-            newVal.addLength(Integer.toString(pattern).length());
-            map.put(keyArray[i], newVal);
-        }
-        return map;
+    // public Map<Integer, SymbolInfo> updateBits(Map<Integer, SymbolInfo> map) {
+    //     List<Integer> keyArray = new ArrayList<Integer>(map.keySet());
+    //     for (int i = 0; i < keyArray.size(); i++) {
+    //         StringBuilder sb = new StringBuilder("");
+    //         int pattern = makeBits(findIndex(keyArray.get(i)), sb);
+    //         SymbolInfo newVal = map.get(keyArray.get(i));
+    //         newVal.addPattern(pattern);
+    //         newVal.addLength(Integer.toString(pattern).length());
+    //         map.put(keyArray.get(i), newVal);
+    //     }
+    //     return map;
+    // }
+
+
+    public void treeTraversal(Map<Integer, SymbolInfo> map, String pattern) { //arguments symbol table and empty string
+      if (this.right() == null && this.left() == null) {
+        // how do we create bit pattern?
+        SymbolInfo newVal = map.get(this.symbol());
+        newVal.addPattern(pattern);
+        newVal.addLength(pattern.length());
+        map.put(this.symbol(), newVal);
+      }
+      if (this.left() != null) {
+        this.left().treeTraversal(map, pattern + "0");
+      }
+      if (this.right() != null) {
+        this.right().treeTraversal(map, pattern + "1");
+      } // use charAt if 0, push 0
     }
 
-    private int makeBits(int n, StringBuilder start) {
-        if (n == 1) {
-            start.append("b0");
-            start.reverse();
-            int pattern = Integer.parseInt(start.toString());
-            return pattern;
-        }
-        if (n % 2 == 0) {
-            start.append("1");
-            return makeBits(n / 2, start);
-        } else {
-            start.append("0");
-            return makeBits(n / 2, start);
-        }
-    }
+
+    // private int makeBits(int n, StringBuilder start) {
+    //     if (n == 1) {
+    //         start.append("b0");
+    //         start.reverse();
+    //         int pattern = Integer.parseInt(start.toString());
+    //         return pattern;
+    //     }
+    //     if (n % 2 == 0) {
+    //         start.append("1");
+    //         return makeBits(n / 2, start);
+    //     } else {
+    //         start.append("0");
+    //         return makeBits(n / 2, start);
+    //     }
+    // }
 
     private HuffTree itemAt(int n) {
         if (n == 1) { return this; }
@@ -99,17 +121,17 @@ public class HuffTreeC implements HuffTree {
     }
 
     // designed to loop until a null pointer is reached
-    private int findIndex(Integer item) {
-        try {
-            int i = 1;
-            while (true) {
-                if (itemAt(i).symbol() == item) { return i; }
-                i++;
-            }
-        } finally {
-            throw new NoSuchElementException("TREE DOES NOT CONTAIN ITEM");
-        }
-    }
+    // private int findIndex(Integer item) {
+    //     try {
+    //         int i = 1;
+    //         while (true) {
+    //             if (itemAt(i).symbol() == item) { return i; }
+    //             i++;
+    //         }
+    //     } finally {
+    //         throw new NoSuchElementException("TREE DOES NOT CONTAIN ITEM");
+    //     }
+    // }
 
     public static void main(String[] args) {
         char a = "A".charAt(0);
